@@ -1,0 +1,178 @@
+<ion-menu contentId="main-content">
+
+  <ion-content class="menu">
+    <div class="menu-header-bg"></div>
+
+    <ion-title>Gestão de Demandas</ion-title>
+
+    <div class="header-content">
+      <img src="../assets/img/usuario01.png" alt="">
+      <ion-label>
+        <h2>Professor</h2>
+        <p>Cordenador</p>
+      </ion-label>
+    </div>
+
+    <ion-list class="menu-items" lines="none" color="light">
+      <ion-item>
+        <ion-icon class="active" class="icon-blue" name="people-outline"></ion-icon>
+        <ion-label [routerLink]="['/carga-horaria']" class="text-black">Carga Horária dos Professores</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon class="icon-blue" name="book-outline"></ion-icon>
+        <ion-label [routerLink]="['/demandas']" class="text-black">Demandas</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon class="icon-blue" name="person-add-outline"></ion-icon>
+        <ion-label [routerLink]="['/cadastros']" class="text-black">Cadastros</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon class="icon-blue" name="newspaper-outline"></ion-icon>
+        <ion-label [routerLink]="['/turmas-cursos']" class="text-black">Turmas e Cursos</ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-icon class="icon-blue" name="log-in-outline"></ion-icon>
+        <ion-label class="text-black" [routerLink]="['/inicio']">Sair</ion-label>
+      </ion-item>
+    </ion-list>
+    
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+
+  <ion-header>
+    <ion-toolbar class="menu-text">
+      <ion-buttons slot="start">
+        <ion-menu-button (click)="openMenu()"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Disciplinas</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="demandas">
+
+    <ion-list class="listas" [inset]="true">
+
+      
+      <div class="tectexto">
+        <h1>Tecnologia Análise e Desenvolvimento de Sistemas</h1>
+        <h2>2024.1</h2>
+      </div>
+
+      <ion-item class="disciplina">
+
+        <ion-label>
+          <h1>Interação Humano Computador</h1>
+
+          <h2>
+            Professor
+            <p>Francisco Eduardo Pires de Morais</p>
+          </h2>
+          <h3>
+            Carga Horária
+            <p>54 Horas</p>
+          </h3>
+
+        </ion-label>
+        
+      </ion-item>
+
+      <ion-item class="disciplina">
+
+        <ion-label>
+          <h1>Engenharia de Software IV</h1>
+
+          <h2>
+            Professor
+            <p>Renne Stephany Ferreira dos Santos</p>
+          </h2>
+          <h3>
+            Carga Horária
+            <p>72 Horas</p>
+          </h3>
+
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item class="disciplina">
+
+        <ion-label>
+          <h1>Projeto Integrador III</h1>
+
+          <h2>
+            Professor
+            <p>Willamys Rangel Nunes de Sousa</p>
+          </h2>
+          <h3>
+            Carga Horária
+            <p>72 Horas</p>
+          </h3>
+
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item class="disciplina">
+
+        <ion-label>
+          <h1>Topicos Especiais em Programação</h1>
+
+          <h2>
+            Professor
+            <p>Ronaldo Pires Borges</p>
+          </h2>
+          <h3>
+            Carga Horária
+            <p>54 Horas</p>
+          </h3>
+
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item class="disciplina">
+
+        <ion-label>
+          <h1>Programaçãp para Dispositivos Móveis</h1>
+
+          <h2>
+            Professor
+            <p>Robson Almeida Borges de Freitas</p>
+          </h2>
+          <h3>
+            Carga Horária
+            <p>72 Horas</p>
+          </h3>
+
+        </ion-label>
+
+      </ion-item>
+
+      <ion-item class="disciplina">
+
+        <ion-label>
+          <h1>Projeto de Pesquisa TCC I</h1>
+
+          <h2>
+            Professor
+            <p>Rafael Angelo Leite</p>
+          </h2>
+          <h3>
+            Carga Horária
+            <p>72 Horas</p>
+          </h3>
+
+        </ion-label>
+
+      </ion-item>
+
+    </ion-list>
+
+  </ion-content>
+  
+</div>
+
+
+

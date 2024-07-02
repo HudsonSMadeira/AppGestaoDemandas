@@ -1,0 +1,290 @@
+<ion-menu contentId="main-content">
+
+  <ion-content class="menu">
+    <div class="menu-header-bg"></div>
+
+    <ion-title>Gestão de Demandas</ion-title>
+
+    <div class="header-content">
+      <img src="../assets/img/usuario01.png" alt="">
+      <ion-label>
+        <h2>Professor</h2>
+        <p>Cordenador</p>
+      </ion-label>
+    </div>
+
+    <ion-list class="menu-items" lines="none" color="light">
+      
+      <ion-item>
+        <ion-icon class="active" class="icon-blue" name="people-outline"></ion-icon>
+        <ion-label [routerLink]="['/carga-horaria']" class="text-black">Carga Horária dos Professores</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon class="icon-blue" name="book-outline"></ion-icon>
+        <ion-label [routerLink]="['/demandas']" class="text-black">Demandas</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon class="icon-blue" name="person-add-outline"></ion-icon>
+        <ion-label [routerLink]="['/cadastros']" class="text-black">Cadastros</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon class="icon-blue" name="newspaper-outline"></ion-icon>
+        <ion-label [routerLink]="['/turmas-cursos']" class="text-black">Turmas e Cursos</ion-label>
+      </ion-item>
+
+      <ion-item>
+        <ion-icon class="icon-blue" name="log-in-outline"></ion-icon>
+        <ion-label class="text-black" [routerLink]="['/inicio']">Sair</ion-label>
+      </ion-item>
+      
+    </ion-list>
+    
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+
+  <ion-header>
+    <ion-toolbar class="menu-text">
+      <ion-buttons slot="start">
+        <ion-menu-button (click)="openMenu()"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Cadastros</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content class="demandas">
+
+    <ion-toolbar class="adds">
+
+      <!--------------------- Professor ---------------------->
+
+      <ion-buttons slot="primary">
+
+        <ion-button fill="outline" (click)="toggleListProfessor()"> 
+          <ion-icon class="EDDICION" slot="end" name="folder-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline" (click)="toggleFormProfessor()"> 
+          <ion-icon class="ADDICON" slot="end" name="add-outline"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+
+      <ion-title class="ADD">Professores</ion-title>
+
+    </ion-toolbar>
+
+    <!-- Formulário para adicionar professor -->
+
+    <ion-card *ngIf="showForm_professor">
+
+      <ion-card-header>
+        <ion-card-title>Adicionar Professor</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <form (ngSubmit)="addProfessor()">
+
+          <ion-item>
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input [(ngModel)]="professor.nome_professor" name="nome" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Matricula</ion-label>
+            <ion-input [(ngModel)]="professor.matricula" name="matricula" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Observações</ion-label>
+            <ion-input [(ngModel)]="professor.observacao_professor" name="observacoes" required></ion-input>
+          </ion-item>
+
+          <ion-button expand="full" type="submit">Adicionar</ion-button>
+          <ion-button expand="full" color="medium" (click)="toggleFormProfessor()">Cancelar</ion-button>
+
+        </form>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Lista de professores cadastrados -->
+
+    <ion-card *ngIf="showList_professor">
+      
+      <ion-card-header>
+        <ion-card-title>Professores Cadastrados</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <ion-list>
+          <ion-item *ngFor="let prof of professores">
+
+            <ion-label>
+              <h2>{{ prof.nome_professor }}</h2>
+              <p>{{ prof.matricula }}</p>
+              <p>{{ prof.observacao_professor }}</p>
+            </ion-label>
+
+            <ion-button fill="outline" color="primary" (click)="editProfessor(prof)">
+              <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+            </ion-button>
+
+            <ion-button fill="outline" color="danger" (click)="deleteProfessor(prof.matricula)">
+              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+            </ion-button>
+
+          </ion-item>
+        </ion-list>
+
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Editar professores cadastrados -->
+
+    <ion-card *ngIf="showEditForm_professor">
+
+      <ion-card-header>
+        <ion-card-title>Editar Professor</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <form (ngSubmit)="updateProfessor()">
+
+          <ion-item>
+            <ion-label position="floating">Nome</ion-label>
+            <ion-input [(ngModel)]="selectedProfessor.nome_professor" name="nome" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Matricula</ion-label>
+            <ion-input [(ngModel)]="selectedProfessor.matricula" name="matricula" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Observações</ion-label>
+            <ion-input [(ngModel)]="selectedProfessor.observacao_professor" name="observacoes" required></ion-input>
+          </ion-item>
+
+          <ion-button expand="full" type="submit" >Atualizar</ion-button>
+          <ion-button expand="full" color="medium" (click)="toggleFormProfessorEdite()">Cancelar</ion-button>
+
+        </form>
+        
+      </ion-card-content>
+
+    </ion-card>
+
+    <!-------------- Ano e Semestre ---------------->
+
+    <ion-toolbar class="adds">
+
+      <ion-buttons slot="primary">
+
+        <ion-button fill="outline" > 
+          <ion-icon class="ADDICON" slot="end" name="folder-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline" (click)="toggleFormSemestre()">
+          <ion-icon class="ADDICON" slot="end" name="add-outline"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+
+      <ion-title class="ADD">Ano e Semestre</ion-title>
+    </ion-toolbar>
+
+    <ion-card *ngIf="showForm_semestre">
+      <ion-card-header>
+        <ion-card-title>Adicionar Ano e Semestre</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form (ngSubmit)="addAnoSemestre()">
+
+          <ion-item>
+            <ion-label position="floating">Ano</ion-label>
+            <ion-input [(ngModel)]="semestre.ano" name="ano" required></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label position="floating">Semestre</ion-label>
+            <ion-input [(ngModel)]="semestre.semestre" name="semestre" required></ion-input>
+          </ion-item>
+          
+          <ion-button expand="full" type="submit">Adicionar</ion-button>
+          <ion-button expand="full" color="medium" (click)="toggleFormSemestre()">Cancelar</ion-button>
+
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-toolbar class="adds">
+
+      <ion-buttons slot="primary">
+
+        <ion-button fill="outline" > 
+          <ion-icon class="ADDICON" slot="end" name="folder-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline">
+          <ion-icon class="ADDICON" slot="end" name="add-outline"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+
+      <ion-title class="ADD">Disciplinas</ion-title>
+    </ion-toolbar>
+
+    <ion-toolbar class="adds">
+
+      <ion-buttons slot="primary">
+
+        <ion-button fill="outline" > 
+          <ion-icon class="ADDICON" slot="end" name="folder-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline" >
+          <ion-icon class="ADDICON" slot="end" name="add-outline"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+
+      <ion-title class="ADD">Matriz</ion-title>
+    </ion-toolbar>
+
+    <ion-toolbar class="adds">
+
+      <ion-buttons slot="primary">
+
+        <ion-button fill="outline" > 
+          <ion-icon class="ADDICON" slot="end" name="folder-outline"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="outline" >
+          <ion-icon class="ADDICON" slot="end" name="add-outline"></ion-icon>
+        </ion-button>
+
+      </ion-buttons>
+
+      <ion-title class="ADD">Atividades</ion-title>
+    </ion-toolbar>
+
+  </ion-content>
+
+  <ion-footer >
+    <ion-toolbar class="CopyCampus">
+      <ion-title class="ifpi"> IFPI - Campus Floriano | Copyright 2024</ion-title>
+    </ion-toolbar>
+  </ion-footer>
+
+</div>
+
+
+
